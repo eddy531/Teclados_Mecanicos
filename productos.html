@@ -25,9 +25,24 @@
       
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app)
+        
+        const productform = document.getElementById("formulario");
+        productform.addEventListener("submit", async(e)=>{
+            e.preventDefault();
+            await addDoc(collection(db, "productos"),{
+                nombre: productform.nombre.value,
+                precio: productform.precio.value,
+                codigo: productform.codigo.value
+            });
+            productform.reset();
+        });
+
+
+
       </script>
     <h1 style="text-align: center; color: cornflowerblue;">GESTION DEL PRODUCTO XD</h1>
-    <form action="insert">
+    <form id="formulario">
         <input type="text" id="nombre" placeholder="Ingrese el nombre del producto">
         <input type="text" id="precio" placeholder="Ingrese el precio del producto">
         <input type="text" id="codigo" placeholder="Ingrese el codigo del producto">
